@@ -8,7 +8,7 @@
     "dev": "nodemon src/app.js"
   },
   "keywords": [],
-  "author": "live in shape",
+  "author": "Live in Shape",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.0.1",
