@@ -6,10 +6,12 @@ import rotasDeDietas from './rotas/rotasDeDietas.js';
 import rotasDeProfissionais from './rotas/rotasDeProfissionais.js';
 import rotasDeConteudos from './rotas/rotasDeConteudos.js';
 import rotasDeChats from './rotas/rotasDeChats.js';
+import rotasDeUsuarios from './rotas/rotasDeUsuarios.js';
 
 const app = Express();
 app.use(logger('dev'));
 
+app.use('/usuarios', rotasDeUsuarios);
 app.use('/clientes', rotasDeClientes);
 app.use('/exercicios', rotasDeExercicios);
 app.use('/dietas', rotasDeDietas);
