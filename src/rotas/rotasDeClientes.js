@@ -5,13 +5,13 @@ const router = Express.Router();
 const prisma = new PrismaClient();
 
 router.get('/', async (req, res) => {
-  const clientes = await prisma.clientes.findMany({});
-  res.send('Get clientes.');
+  const clientes = await prisma.cliente.findMany({});
+  res.send(clientes);
 });
 
 router.post('/', async (req, res) => {
   const clientes = req.body;
-  await prisma.clientes.create({
+  await prisma.cliente.create({
     data: clientes,
 });
   res.status(201).send('Post clientes!');

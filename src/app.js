@@ -7,9 +7,13 @@ import rotasDeProfissionais from './rotas/rotasDeProfissionais.js';
 import rotasDeConteudos from './rotas/rotasDeConteudos.js';
 import rotasDeChats from './rotas/rotasDeChats.js';
 import rotasDeUsuarios from './rotas/rotasDeUsuarios.js';
+import cors from 'cors';
 
 const app = Express();
 app.use(logger('dev'));
+app.use(cors());
+app.use(Express.json())
+
 
 app.use('/usuarios', rotasDeUsuarios);
 app.use('/clientes', rotasDeClientes);
