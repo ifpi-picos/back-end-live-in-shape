@@ -6,7 +6,6 @@ import rotasDeDietas from './rotas/rotasDeDietas.js';
 import rotasDeProfissionais from './rotas/rotasDeProfissionais.js';
 import rotasDeConteudos from './rotas/rotasDeConteudos.js';
 import rotasDeChats from './rotas/rotasDeChats.js';
-import rotasDeUsuarios from './rotas/rotasDeUsuarios.js';
 import cors from 'cors';
 
 const app = Express();
@@ -15,11 +14,9 @@ app.use(cors());
 app.use(Express.json())
 
 
-app.use('/usuarios', rotasDeUsuarios);
 app.use('/clientes', rotasDeClientes);
 app.use('/exercicios', rotasDeExercicios);
 app.use('/dietas', rotasDeDietas);
-
 app.use('/profissionais', rotasDeProfissionais);
 app.use('/conteudos', rotasDeConteudos);
 app.use('/chats', rotasDeChats);
