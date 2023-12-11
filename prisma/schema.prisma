@@ -18,6 +18,7 @@ model Cliente {
   cpf String @unique
   telefone String @unique
   email String @unique
+  senha String
 
   @@map("clientes")
 }
