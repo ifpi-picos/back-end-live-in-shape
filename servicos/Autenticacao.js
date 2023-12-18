@@ -9,32 +9,32 @@ class Autenticacao {
     this.prisma = new PrismaClient();
   }
 
-  gerarToken(usuario) {
-    const token = jwt.sign({ id: usuario.id }, chaveSecretaToken, {
+  gerarToken(cliente) {
+    const token = jwt.sign({ id: cliente.id }, chaveSecretaToken, {
       expiresIn: '1d',
     });
     return token;
   }
 
   async login(email, senha) {
-    const usuario = await this.prisma.usuario.findUnique({
+    const cliente = await this.prisma.cliente.findUnique({
       where: {
         email: email,
       },
     });
 
-    if (usuario === null) {
+    if (cliente === null) {
       console.log('email não encontrado', email);
       throw new Error('Invalid Email or Password!');
     }
 
-    const senhaValida = bcrypt.compareSync(senha, usuario.senha);
+    const senhaValida = bcrypt.compareSync(senha, cliente.senha);
     if (!senhaValida) {
       throw new Error('Invalid Email or Password!');
     }
-    const token = this.gerarToken(usuario);
-    const { nome } = usuario;
-    return { token, usuario: { nome, email } };
+    const token = this.gerarToken(cliente);
+    const { nome } = cliente;
+    return { token, cliente: { nome, email } };
   }
 }
 

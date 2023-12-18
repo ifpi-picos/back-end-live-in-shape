@@ -7,12 +7,19 @@ import rotasDeProfissionais from './rotas/rotasDeProfissionais.js';
 import rotasDeConteudos from './rotas/rotasDeConteudos.js';
 import rotasDeChats from './rotas/rotasDeChats.js';
 import cors from 'cors';
+import cadastro from './rotas/cadastro.js';
+import login from './rotas/login.js';
+import aut from './middlewares/aut.js';
 
 const app = Express();
 app.use(logger('dev'));
 app.use(cors());
 app.use(Express.json())
 
+app.use('/cadastro', cadastro);
+app.use('/login', login);
+app.use(aut); // middleware de autenticacao
+//colocar abaixo todas as rotas privadas que precisam de autenticacao
 
 app.use('/clientes', rotasDeClientes);
 app.use('/exercicios', rotasDeExercicios);
