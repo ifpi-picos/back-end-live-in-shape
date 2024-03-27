@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 const autenticacao = new Autenticacao();
 
 router.post('/', async (req, res) => {
+  console.log(req.body);
   try {
     const { email, senha } = req.body;
     const { token, cliente } = await autenticacao.login(email, senha);

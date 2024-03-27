@@ -17,6 +17,10 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(Express.json())
 
+app.get( '/', (req, res) => {
+  res.send('Online')
+ } );
+
 app.use('/cadastro', cadastro);
 app.use('/login', login);
 app.use('/clientes', rotaGetDeClientes);
