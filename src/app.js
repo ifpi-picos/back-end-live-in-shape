@@ -1,6 +1,7 @@
 import Express from 'express';
 import logger from 'morgan';
 import rotasDeClientes from './rotas/rotasDeClientes.js';
+import rotaGetDeClientes from './rotas/rotaGetDeClientes.js';
 import rotasDeExercicios from './rotas/rotasDeExercicios.js';
 import rotasDeDietas from './rotas/rotasDeDietas.js';
 import rotasDeProfissionais from './rotas/rotasDeProfissionais.js';
@@ -18,6 +19,7 @@ app.use(Express.json())
 
 app.use('/cadastro', cadastro);
 app.use('/login', login);
+app.use('/clientes', rotaGetDeClientes);
 app.use(aut); // middleware de autenticacao
 //colocar abaixo todas as rotas privadas que precisam de autenticacao
 
