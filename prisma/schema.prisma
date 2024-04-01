@@ -37,3 +37,14 @@ model Profissinal {
 
   @@map("profissionais")
 }
+
+model Medidas {
+  id    Int    @id @default(autoincrement())
+  peso  String
+  altura String
+  quadril String 
+  cintura String 
+  ombro String
+  envergadura String
+  @@map("medidas")
+}
