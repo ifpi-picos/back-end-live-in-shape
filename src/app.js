@@ -9,6 +9,7 @@ import rotasDeConteudos from './rotas/rotasDeConteudos.js';
 import rotasDeChats from './rotas/rotasDeChats.js';
 import cors from 'cors';
 import cadastro from './rotas/cadastro.js';
+import cadastro_pro from './rotas/cadastro_pro.js';
 import login from './rotas/login.js';
 import aut from './middlewares/aut.js';
 
@@ -22,6 +23,7 @@ app.get( '/', (req, res) => {
  } );
 
 app.use('/cadastro', cadastro);
+app.use('/cadastro_pro', cadastro_pro);
 app.use('/login', login);
 app.use('/clientes', rotaGetDeClientes);
 app.use(aut); // middleware de autenticacao
