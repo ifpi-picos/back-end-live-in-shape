@@ -22,8 +22,8 @@ app.get( '/', (req, res) => {
   res.send('Online')
  } );
 
-app.use('/cadastro', cadastro);
 app.use('/cadastro_pro', cadastro_pro);
+app.use('/cadastro', cadastro);
 app.use('/login', login);
 app.use('/clientes', rotaGetDeClientes);
 app.use(aut); // middleware de autenticacao
