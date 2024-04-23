@@ -24,7 +24,7 @@ model Cliente {
   @@map("clientes")
 }
 
-model Profissinal {
+model Profissional {
   id    Int    @id @default(autoincrement())
   nome  String
   sobreNome String
@@ -33,7 +33,7 @@ model Profissinal {
   biografia String?
   anexe String?
   profissao String
-  telefone String @unique
+  telefone String 
 
   @@map("profissionais")
 }
