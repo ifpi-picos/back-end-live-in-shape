@@ -24,14 +24,12 @@ model Cliente {
   @@map("clientes")
 }
 
-model Profissinal {
+model Profissional {
   id    Int    @id @default(autoincrement())
   nome  String
   sobreNome String
   cpf String @unique
   email String @unique
-  biografia String?
-  anexe String?
   profissao String
   telefone String @unique
 
