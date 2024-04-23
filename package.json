@@ -1,6 +1,7 @@
 {
   "name": "express-starter",
   "version": "1.0.0",
+  "type": "module",
   "description": "back-end do projeto good shape",
   "main": "index.js",
   "scripts": {
