@@ -33,7 +33,7 @@ model Profissional {
   biografia String?
   anexe String?
   profissao String
-  telefone String 
+  telefone String @unique
 
   @@map("profissionais")
 }
