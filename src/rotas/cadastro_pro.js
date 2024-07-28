@@ -7,24 +7,39 @@ const prisma = new PrismaClient();
 
 router.post('/', async (req, res) => {
   try {
-    const { emailPro } = req.body;
-    const { sobreNomePro } = req.body;
-    const {  nomePro } = req.body;
-    const { nascimentoPro } = req.body;
-    const {senhaPro } = req.body;
-    const { cpfPro } = req.body;
-    const { telefonePro } = req.body;
-    const { profissao } = req.body;
-    const senhaCriptografada_pro = criptografaSenha_pro(senhaPro);
-    console.log('senhaCriptografada', senhaCriptografada_pro)
-    const profissional = {  nomePro, emailPro, telefonePro, sobreNomePro, nascimentoPro, cpfPro, profissao, senhaPro: senhaCriptografada_pro};
-    await prisma.profissional.create({
+    const { email, sobreNome, nome, nascimento, senha, cpf, telefone, profissao, bio, diploma } = req.body;
+
+    // Validação básica dos campos obrigatórios
+    if (!email || !sobreNome || !nome || !nascimento || !senha || !cpf || !telefone || !profissao) {
+      return res.status(400).send('Todos os campos são obrigatórios.');
+    }
+
+    // Criptografia da senha
+    const senhaCriptografada = criptografaSenha_pro(senha);
+    console.log('Senha criptografada:', senhaCriptografada);
+
+    const profissional = {
+      nome,
+      email,
+      telefone,
+      sobreNome,
+      nascimento: new Date(nascimento),
+      cpf,
+      profissao,
+      senha: senhaCriptografada,
+      bio,
+      diploma
+    };
+
+    // Tentativa de criação do registro no banco de dados
+    const novoProfissional = await prisma.profissional.create({
       data: profissional,
     });
-    res.status(201).send('Usuário salvo com sucesso!');
+
+    res.status(201).json(novoProfissional);
   } catch (erro) {
-    console.error(erro);
-    res.status(400).send('erro ao salvar usuario!');
+    console.error('Erro ao salvar profissional:', erro);
+    res.status(400).send('Erro ao salvar usuário!');
   }
 });
 
