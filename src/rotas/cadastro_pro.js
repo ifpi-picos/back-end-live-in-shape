@@ -26,3 +26,4 @@ router.post('/', async (req, res) => {
     res.status(400).send('erro ao salvar usuario!');
   }
 });
+export default router;
