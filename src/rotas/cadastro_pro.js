@@ -7,28 +7,23 @@ const prisma = new PrismaClient();
 
 router.post('/', async (req, res) => {
   try {
-    const { nomePro, sobreNomePro, nascimentoPro, cpfPro, telefonePro, emailPro, senhaPro } = req.body;
-    const senhaCriptografada_pro = criptografaSenha_pro(senhaPro);
-
-    const profissional = { 
-      nome: nomePro, 
-      sobreNome: sobreNomePro, 
-      nascimento: new Date(nascimentoPro), 
-      cpf: cpfPro, 
-      telefone: telefonePro, 
-      email: emailPro, 
-      senha: senhaCriptografada_pro
-    
-    };
-    
+    const { emailPro } = req.body;
+    const { sobreNomePro } = req.body;
+    const { nomePro } = req.body;
+    const { nascimentoPro } = req.body;
+    const { senhaPro } = req.body;
+    const { cpfPro } = req.body;
+    const { telefonePro } = req.body;
+    const senhaCriptografada = criptografaSenha_pro(senhaPro);
+    console.log('senhaCriptografada', senhaCriptografada)
+    const profissional = { nomePro, emailPro, telefonePro, sobreNomePro, nascimentoPro, cpfPro, senhaPro: senhaCriptografada};
     await prisma.profissional.create({
       data: profissional,
     });
-
     res.status(201).send('Usuário salvo com sucesso!');
   } catch (erro) {
     console.error(erro);
-    res.status(400).send('Erro ao salvar usuário!');
+    res.status(400).send('erro ao salvar usuario!');
   }
 });
 
