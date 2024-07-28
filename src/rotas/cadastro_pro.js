@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 router.post('/', async (req, res) => {
   try {
-    const { nomePro, sobreNomePro, nascimentoPro, cpfPro, telefonePro, emailPro, senhaPro, bio, diploma, profissao } = req.body;
+    const { nomePro, sobreNomePro, nascimentoPro, cpfPro, telefonePro, emailPro, senhaPro } = req.body;
     const senhaCriptografada_pro = criptografaSenha_pro(senhaPro);
 
     const profissional = { 
@@ -17,10 +17,8 @@ router.post('/', async (req, res) => {
       cpf: cpfPro, 
       telefone: telefonePro, 
       email: emailPro, 
-      senha: senhaCriptografada_pro, 
-      bio, 
-      diploma, 
-      profissao 
+      senha: senhaCriptografada_pro
+    
     };
     
     await prisma.profissional.create({
