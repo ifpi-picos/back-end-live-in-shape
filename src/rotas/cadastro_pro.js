@@ -24,6 +24,7 @@ router.post('/', async (req, res) => {
         senha: senhaCriptografada,
       },
     });
+    console.log(profissional)
 
     res.status(201).send('Usuário salvo com sucesso!');
   } catch (erro) {
