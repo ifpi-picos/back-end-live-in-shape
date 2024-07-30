@@ -32,7 +32,7 @@ model Profissional {
   cpf           String   @unique
   telefone      String   @unique
   email         String   @unique
-  senhaPro         String
+  senha         String
 
 
   @@map("profissionais")
