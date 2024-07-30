@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
     const { senhaPro } = req.body;
     const { cpfPro } = req.body;
     const { telefonePro } = req.body;
-    const senhaCriptografadaPro = criptografaSenha_Pro(senhaPro);
+    const senhaCriptografadaPro = criptografaSenha_pro(senhaPro);
     console.log('senhaCriptografada', senhaCriptografadaPro)
     const profissional = { nome: nomePro, email: emailPro, telefone: telefonePro, sobreNome: sobreNomePro, nascimento: nascimentoPro, cpf: cpfPro, senha: senhaCriptografadaPro};
     console.log("Profissional:" , profissional)
