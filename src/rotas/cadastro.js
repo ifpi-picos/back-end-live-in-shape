@@ -1,4 +1,3 @@
-
 import { PrismaClient } from '@prisma/client';
 import Express from 'express';
 import { criptografaSenha } from '../../servicos/senha.js';
