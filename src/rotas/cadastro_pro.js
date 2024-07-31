@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     const { telefonePro } = req.body;
     const senhaCriptografadaPro = criptografaSenha_pro(senhaPro);
     console.log('senhaCriptografada', senhaCriptografadaPro)
-    const profissional = {nomePro, emailPro, telefonePro, sobreNomePro, nascimentoPro, cpfPro, senhaPro: senhaCriptografadaPro};
+    const profissional = {nomePro: nomePro, emailPro: emailPro, telefonePro: telefonePro, sobreNomePro: sobreNomePro, nascimentoPro: nascimentoPro, cpfPro: cpfPro, senhaPro: senhaCriptografadaPro};
     console.log("Profissional:" , profissional)
     await prisma.profissional.create({
       data: profissional,
