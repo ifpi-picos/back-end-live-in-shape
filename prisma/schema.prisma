@@ -12,39 +12,27 @@ datasource db {
 }
 
 model Cliente {
-  id    Int    @id @default(autoincrement())
-  nome  String
-  sobreNome String
+  id         Int    @id @default(autoincrement())
+  nome       String
+  sobreNome  String
   nascimento String
-  cpf String @unique
-  telefone String @unique
-  email String @unique
-  senha String
+  cpf        String @unique
+  telefone   String @unique
+  email      String @unique
+  senha      String
+  tipo       String
 
-  @@map("clientes")
-}
-
-model Profissional {
-  id            Int      @id @default(autoincrement())
-  nomePro          String
-  sobreNomePro     String
-  nascimentoPro    String
-  cpfPro           String   @unique
-  telefonePro      String   @unique
-  emailPro         String   @unique
-  senhaPro         String
-
-
-  @@map("profissionais")
+  @@map("usuarios")
 }
 
 model Medidas {
-  id    Int    @id @default(autoincrement())
-  peso  String
-  altura String
-  quadril String 
-  cintura String 
-  ombro String
+  id          Int    @id @default(autoincrement())
+  peso        String
+  altura      String
+  quadril     String
+  cintura     String
+  ombro       String
   envergadura String
+
   @@map("medidas")
 }

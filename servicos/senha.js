@@ -9,11 +9,11 @@ export function criptografaSenha(senha) {
   return hash;
 }
 
-export async function validaSenha(senha, idCliente) {
-  const cliente = await prisma.cliente.findUnique({
+export async function validaSenha(senha, idUsuario) {
+  const usuario = await prisma.usuario.findUnique({
     where: {
-      id: idCliente,
+      id: idUsuario,
     },
   });
-  return bcrypt.compareSync(senha, cliente.senha);
+  return bcrypt.compareSync(senha, usuario.senha);
 }

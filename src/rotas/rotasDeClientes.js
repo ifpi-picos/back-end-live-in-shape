@@ -4,30 +4,17 @@ import { PrismaClient } from '@prisma/client';
 const router = Express.Router();
 const prisma = new PrismaClient();
 
-router.get('/', async (req, res) => {
-  const clientes = await prisma.cliente.findMany({});
-  res.send(clientes);
-});
-
-router.post('/', async (req, res) => {
-  const clientes = req.body;
-  await prisma.cliente.create({
-    data: clientes,
-});
-  res.status(201).send('Post clientes!');
-});
-
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
-  const cliente = await prisma.cliente.update({
+  const usuario = await prisma.usuario.update({
     where: { id: Number(id) },
     data: req.body,
   });
-  res.send('Put cliente!');
+  res.send('Put usuario!');
 });
 
 router.delete('/:id', (req, res) => {
-  res.send('Delete cliente!');
+  res.send('Delete usuario!');
 });
 
 export default router;

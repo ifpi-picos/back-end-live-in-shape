@@ -4,7 +4,6 @@ import { criptografaSenha } from '../../servicos/senha.js';
 
 const router = Express.Router();
 const prisma = new PrismaClient();
-
 router.post('/', async (req, res) => {
   try {
     const { email } = req.body;
@@ -14,17 +13,22 @@ router.post('/', async (req, res) => {
     const { senha } = req.body;
     const { cpf } = req.body;
     const { telefone } = req.body;
+    const { tipo } = req.body;
     const senhaCriptografada = criptografaSenha(senha);
-    console.log('senhaCriptografada', senhaCriptografada)
-    const cliente = { nome, email, telefone, sobreNome, nascimento, cpf, senha: senhaCriptografada};
-    await prisma.cliente.create({
-      data: cliente,
+
+    if(tipo !== 'cliente' && tipo !== 'profissional'){
+      return res.status(400).send('Informe o tipo correto');
+    }
+
+    const usuario = { nome, email, telefone, sobreNome, nascimento, cpf, tipo, senha: senhaCriptografada};
+
+    await prisma.usuario.create({
+      data: usuario,
     });
     res.status(201).send('Usuário salvo com sucesso!');
   } catch (erro) {
     console.error(erro);
-    res.status(400).send('erro ao salvar usuario!');
+    res.status(400).send('Erro ao salvar usuario!', erro);
   }
 });
-
 export default router;

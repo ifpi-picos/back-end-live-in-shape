@@ -5,8 +5,12 @@ const router = Express.Router();
 const prisma = new PrismaClient();
 
 router.get('/', async (req, res) => {
-  const clientes = await prisma.cliente.findMany({});
-  res.send(clientes);
+  const usuarios = await prisma.usuario.findMany({
+    where:{
+      tipo: 'cliente'
+    }
+  });
+  res.send(usuarios);
 });
 
 export default router;

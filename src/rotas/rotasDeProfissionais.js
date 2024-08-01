@@ -5,17 +5,14 @@ const router = Express.Router();
 const prisma = new PrismaClient();
 
 router.get('/', async (req, res) => {
-  const profissionais = await prisma.profissional.findMany({});
+  const profissionais = await prisma.profissional.findMany({
+    where:{
+       tipo: 'profissional'
+    }
+  });
   res.send(profissionais);
 });
 
-router.post('/', async (req, res) => {
-  const profissionais = req.body;
-  await prisma.profissional.create({
-    data: profissionais,
-});
-  res.status(201).send('Post profissionais!');
-});
 
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
