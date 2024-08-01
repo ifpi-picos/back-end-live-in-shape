@@ -5,7 +5,7 @@ const router = Express.Router();
 const prisma = new PrismaClient();
 
 router.get('/', async (req, res) => {
-  const profissionais = await prisma.profissional.findMany({
+  const profissionais = await prisma.usuario.findMany({
     where:{
        tipo: 'profissional'
     }
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
-  const profissional = await prisma.profissional.update({
+  const usuario = await prisma.usuario.update({
     where: { id: Number(id) },
     data: req.body,
   });
