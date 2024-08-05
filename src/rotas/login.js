@@ -7,11 +7,21 @@ const prisma = new PrismaClient();
 const autenticacao = new Autenticacao();
 
 router.post('/', async (req, res) => {
-  console.log(req.body);
   try {
     const { email, senha } = req.body;
     const { token, usuario } = await autenticacao.login(email, senha);
-    res.json({ token, usuario });
+
+    // Verifique o tipo do usuário
+    const usuarioTipo = await prisma.usuario.findUnique({
+      where: { email: email },
+      select: { tipo: true }
+    });
+
+    res.json({
+      token,
+      usuario,
+      tipo: usuarioTipo.tipo // Inclua o tipo de usuário na resposta
+    });
   } catch (error) {
     console.error(error);
     res.status(400).send(error.message);
