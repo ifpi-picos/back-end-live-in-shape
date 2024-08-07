@@ -25,14 +25,10 @@ model Usuario {
   @@map("usuarios")
 }
 
-model Medidas {
-  id          Int    @id @default(autoincrement())
-  peso        String
-  altura      String
-  quadril     String
-  cintura     String
-  ombro       String
-  envergadura String
+model Disponibilidade {
+  id        Int      @id @default(autoincrement())
+  day       DateTime
+  timeSlots Json
 
-  @@map("medidas")
+  @@map("disponibilidades")
 }
