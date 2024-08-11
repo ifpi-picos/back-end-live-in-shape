@@ -1,12 +1,13 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
+import autenticar from './middlewares/autenticacao.js'; // Ajuste o caminho conforme necessário
 
 const router = express.Router();
 const prisma = new PrismaClient();
 
-router.post('/salvar-horarios', async (req, res) => {
+router.post('/salvar-horarios', autenticar, async (req, res) => {
     const { horarios } = req.body;
-    const usuarioId = 1; // Substitua isso pelo ID do usuário logado
+    const usuarioId = req.usuarioId; // Obtém o ID do usuário da requisição
 
     try {
         // Limpar horários antigos
