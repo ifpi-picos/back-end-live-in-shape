@@ -4,27 +4,27 @@ import { PrismaClient } from '@prisma/client';
 const router = Express.Router();
 const prisma = new PrismaClient();
 
+// Rota para listar profissionais
 router.get('/', async (req, res) => {
-  const profissionais = await prisma.usuario.findMany({
-    where:{
-       tipo: 'profissional'
-    }
-  });
-  res.send(profissionais);
-});
-
-
-router.put('/:id', async (req, res) => {
-  const { id } = req.params;
-  const usuario = await prisma.usuario.update({
-    where: { id: Number(id) },
-    data: req.body,
-  });
-  res.send('Put profissional!');
-});
-
-router.delete('/:id', (req, res) => {
-  res.send('Delete profissional!');
+  try {
+    const profissionais = await prisma.usuario.findMany({
+      where: {
+        tipo: 'profissional'
+      },
+      select: {
+        id: true,
+        nome: true,
+        sobreNome: true,
+        tipo: true,
+        email: true,
+        telefone: true
+      }
+    });
+    res.status(200).json(profissionais);
+  } catch (error) {
+    console.error('Erro ao listar profissionais:', error);
+    res.status(500).json({ error: 'Erro ao listar profissionais' });
+  }
 });
 
 export default router;
