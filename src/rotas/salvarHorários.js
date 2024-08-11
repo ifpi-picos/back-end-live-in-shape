@@ -1,13 +1,12 @@
-import express from 'express';
+import Express from 'express';
 import { PrismaClient } from '@prisma/client';
-import autenticar from './middlewares/autenticacao.js'; // Ajuste o caminho conforme necessário
 
-const router = express.Router();
+const router = Express.Router();
 const prisma = new PrismaClient();
 
-router.post('/salvar-horarios', autenticar, async (req, res) => {
+router.post('/salvar-horarios', async (req, res) => {
     const { horarios } = req.body;
-    const usuarioId = req.usuarioId; // Obtém o ID do usuário da requisição
+    const usuarioId = 1; // Substitua isso pelo ID do usuário logado
 
     try {
         // Limpar horários antigos
@@ -19,18 +18,18 @@ router.post('/salvar-horarios', autenticar, async (req, res) => {
         const horariosSalvos = await Promise.all(horarios.map(horario =>
             prisma.disponibilidade.create({
                 data: {
-                    diaSemana: 'Segunda-feira', // Ajuste conforme necessário
-                    horaInicio: horario.inicio,
-                    horaFim: horario.fim,
-                    usuarioId: usuarioId,
+                    diaSemana: horario.diaSemana,
+                    horaInicio: horario.horaInicio,
+                    horaFim: horario.horaFim,
+                    usuarioId: usuarioId
                 }
             })
         ));
 
-        res.status(200).json(horariosSalvos);
+        res.status(200).send('Horários salvos com sucesso!');
     } catch (error) {
         console.error('Erro ao salvar horários:', error);
-        res.status(500).json({ message: 'Erro ao salvar horários' });
+        res.status(400).send('Erro ao salvar horários!');
     }
 });
 
