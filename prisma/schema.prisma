@@ -21,14 +21,16 @@ model Usuario {
   email      String @unique
   senha      String
   tipo       String
+  disponibilidade Disponibilidade[]
 
   @@map("usuarios")
 }
 
 model Disponibilidade {
-  id        Int      @id @default(autoincrement())
-  dia       DateTime
-  horarios Json
-
-  @@map("disponibilidades")
+  id            Int      @id @default(autoincrement())
+  diaSemana     String
+  horaInicio    String
+  horaFim       String
+  usuarioId     Int
+  usuario       Usuario  @relation(fields: [usuarioId], references: [id])
 }
