@@ -11,6 +11,7 @@ import rotasDeConteudos from './rotas/rotasDeConteudos.js';
 import rotasDeDietas from './rotas/rotasDeDietas.js';
 import rotasDeExercicios from './rotas/rotasDeExercicios.js';
 import rotasDeProfissionais from './rotas/rotasDeProfissionais.js';
+import salvarHorarios from './rotas/salvarHorarios.js';
 
 const app = Express();
 app.use(logger('dev'));
@@ -33,6 +34,7 @@ app.use('/dietas', rotasDeDietas);
 app.use('/profissionais', rotasDeProfissionais);
 app.use('/conteudos', rotasDeConteudos);
 app.use('/chats', rotasDeChats);
+app.use('/api', salvarHorarios);
 
 app.listen(3000, () => {
   console.log('Server running on port 3000');
