@@ -27,8 +27,8 @@ model Usuario {
 
 model Disponibilidade {
   id        Int      @id @default(autoincrement())
-  day       DateTime
-  timeSlots Json
+  dia       DateTime
+  horarios Json
 
   @@map("disponibilidades")
 }
