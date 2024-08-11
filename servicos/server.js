@@ -1,37 +1,52 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
-const prisma = new PrismaClient();
 const app = express();
+const prisma = new PrismaClient();
+
 app.use(bodyParser.json());
+app.use(cors());
 
-app.post('/availability', async (req, res) => {
-    const { day, timeSlots } = req.body;
+// Registrar disponibilidade para um profissional (usuário do tipo 'profissional')
+app.post('/disponibilidades', async (req, res) => {
+  const { usuarioId, diaSemana, horaInicio, horaFim } = req.body;
 
-    try {
-        const availability = await prisma.availability.create({
-            data: {
-                day: new Date(day),
-                timeSlots: JSON.stringify(timeSlots)
-            }
-        });
-        res.json(availability);
-    } catch (error) {
-        res.status(500).json({ error: 'Something went wrong' });
-    }
+  // Verificar se o usuário é do tipo 'profissional'
+  const usuario = await prisma.usuario.findUnique({
+    where: { id: usuarioId },
+  });
+
+  if (usuario.tipo !== 'profissional') {
+    return res.status(400).json({ error: 'Usuário não é um profissional.' });
+  }
+
+  const novaDisponibilidade = await prisma.disponibilidade.create({
+    data: {
+      diaSemana,
+      horaInicio,
+      horaFim,
+      usuarioId,
+    },
+  });
+
+  res.json(novaDisponibilidade);
 });
 
-app.get('/availability', async (req, res) => {
-    try {
-        const availabilities = await prisma.availability.findMany();
-        res.json(availabilities);
-    } catch (error) {
-        res.status(500).json({ error: 'Something went wrong' });
-    }
+// Listar disponibilidades de um profissional (usuário do tipo 'profissional')
+app.get('/disponibilidades/:usuarioId', async (req, res) => {
+  const { usuarioId } = req.params;
+
+  const disponibilidades = await prisma.disponibilidade.findMany({
+    where: {
+      usuarioId: parseInt(usuarioId),
+    },
+  });
+
+  res.json(disponibilidades);
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.listen(3000, () => {
+  console.log('Servidor rodando na porta 3000');
 });
