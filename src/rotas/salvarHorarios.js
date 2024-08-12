@@ -3,21 +3,31 @@ import { PrismaClient } from '@prisma/client';
 
 const router = Express.Router();
 const prisma = new PrismaClient();
+
 router.post('/', async (req, res) => {
     try {
-        const { diaSemana, horaInicio, horaFim } = req.body;
+        // Extrair e validar dados
+        const { diaSemana } = req.body;
+        const { horaInicio } = req.body;
+        const { horaFim } = req.body;
         console.log('Dados recebidos:', { diaSemana, horaInicio, horaFim });
 
-        const disponibilidade = { diaSemana, horaInicio, horaFim };
+        if (!diaSemana || !horaInicio || !horaFim) {
+            console.log('Dados inválidos:', { diaSemana, horaInicio, horaFim });
+            return res.status(400).json({ error: 'Dados inválidos' });
+        }
 
-        await prisma.disponibilidade.create({
-            data: disponibilidade,
+        // Criar disponibilidade no banco de dados
+        const disponibilidade = { diaSemana, horaInicio, horaFim}
+         await prisma.disponibilidade.create({
+            data: { diaSemana, horaInicio, horaFim },
         });
         
-        res.status(201).send('Horário salvo com sucesso!');
+        console.log('Disponibilidade criada:', disponibilidade);
+        res.status(201).json(disponibilidade);
     } catch (error) {
         console.error('Erro ao salvar horário:', error);
-        res.status(500).send('Erro ao salvar horário.');
+        res.status(500).json({ error: 'Erro interno do servidor', details: error.message });
     }
 });
 
