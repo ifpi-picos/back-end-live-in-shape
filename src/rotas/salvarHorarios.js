@@ -6,11 +6,9 @@ const prisma = new PrismaClient();
 router.post('/', async (req, res) => {
     try {
         const { diaSemana, horaInicio, horaFim } = req.body;
-        const usuarioId = req.userId; // Pegando o userId do middleware de autenticação
+        console.log('Dados recebidos:', { diaSemana, horaInicio, horaFim });
 
-        console.log('Dados recebidos:', { diaSemana, horaInicio, horaFim, usuarioId });
-
-        const disponibilidade = { diaSemana, horaInicio, horaFim, usuarioId };
+        const disponibilidade = { diaSemana, horaInicio, horaFim };
 
         await prisma.disponibilidade.create({
             data: disponibilidade,
