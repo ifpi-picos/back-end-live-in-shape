@@ -15,27 +15,34 @@ import salvarHorarios from './rotas/salvarHorarios.js';
 
 const app = Express();
 app.use(logger('dev'));
-app.use(cors());
-app.use(Express.json())
+
+// Configuração do CORS
+app.use(cors({
+  origin: 'https://goodshape.netlify.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+
+app.use(Express.json());
 
 app.get('/', (req, res) => {
-  res.send('Online')
+  res.send('Online');
 });
 
 app.use('/cadastro', cadastro);
 app.use('/login', login);
 app.use('/clientes', rotaGetDeClientes);
-app.use('/salvarHorarios', salvarHorarios);
-app.use(aut); // middleware de autenticacao
-//colocar abaixo todas as rotas privadas que precisam de autenticacao
+app.use(aut); // middleware de autenticação
 
+// Colocar abaixo todas as rotas privadas que precisam de autenticação
 app.use('/clientes', rotasDeClientes);
 app.use('/exercicios', rotasDeExercicios);
 app.use('/dietas', rotasDeDietas);
 app.use('/profissionais', rotasDeProfissionais);
 app.use('/conteudos', rotasDeConteudos);
 app.use('/chats', rotasDeChats);
-app.use('/salvarHorarios', salvarHorarios);
+app.use('/horarios', salvarHorarios);
 
 app.listen(3000, () => {
   console.log('Server running on port 3000');
