@@ -21,7 +21,7 @@ model Usuario {
   email      String @unique
   senha      String
   tipo       String
-  disponibilidade Disponibilidade[]
+  //disponibilidade Disponibilidade[]
 
   @@map("usuarios")
 }
@@ -31,6 +31,6 @@ model Disponibilidade {
   diaSemana     String
   horaInicio    String
   horaFim       String
-  usuarioId     Int
-  usuario       Usuario  @relation(fields: [usuarioId], references: [id])
+ // usuarioId     Int
+  //usuario       Usuario  @relation(fields: [usuarioId], references: [id])
 }
