@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 app.use('/cadastro', cadastro);
 app.use('/login', login);
 app.use('/clientes', rotaGetDeClientes);
+app.use('/salvarHorarios', salvarHorarios);
 app.use(aut); // middleware de autenticacao
 //colocar abaixo todas as rotas privadas que precisam de autenticacao
 
