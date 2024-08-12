@@ -26,8 +26,7 @@ router.post('/', async (req, res) => {
         console.log('Disponibilidade criada:', disponibilidade);
         res.status(201).json(disponibilidade);
     } catch (error) {
-        console.error('Erro ao salvar horário:', error);
-        res.status(500).json({ error: 'Erro interno do servidor', details: error.message });
+        
     }
 });
 
