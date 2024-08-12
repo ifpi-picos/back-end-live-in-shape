@@ -48,59 +48,7 @@
   });
 
 
-
-
-
-
-  const chaveSecretaToken = '1skljaksdj9983498327453lsldkjf';
-
-app.use(express.json());
-
-app.post('/salvarHorarios', validaToken, async (req, res) => {
-    const { date, inicio, fim, profissional } = req.body;
-
-    try {
-        // Adicionar a disponibilidade no banco de dados
-        await prisma.disponibilidade.create({
-            data: {
-                diaSemana: date,
-                horaInicio: inicio,
-                horaFim: fim,
-                profissional,
-            },
-        });
-
-        res.status(200).json({ message: 'Horário salvo com sucesso!' });
-    } catch (error) {
-        res.status(500).json({ error: 'Erro ao salvar o horário.' });
-    }
-});
-
-app.get('/obterHorarios', async (req, res) => {
-    try {
-        // Recuperar as disponibilidades do banco de dados
-        const disponibilidades = await prisma.disponibilidade.findMany();
-        res.status(200).json({ disponibilidades });
-    } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar disponibilidades.' });
-    }
-});
-
-function validaToken(req, res, next) {
-    const bearerToken = req.headers.authorization;
-    if (!bearerToken) {
-        return res.status(403).send({ auth: false, message: 'Token não informado.' });
-    }
-
-    const token = bearerToken.split(' ')[1];
-    jwt.verify(token, chaveSecretaToken, (error, decoded) => {
-        if (error) {
-            return res.status(500).send({ auth: false, message: 'Falha na autenticação.' });
-        }
-        req.userId = decoded.id;
-        next();
-    });
-}
+  
   app.listen(3000, () => {
     console.log('Server running on port 3000');
   });
