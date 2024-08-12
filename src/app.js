@@ -42,7 +42,7 @@ app.use('/dietas', rotasDeDietas);
 app.use('/profissionais', rotasDeProfissionais);
 app.use('/conteudos', rotasDeConteudos);
 app.use('/chats', rotasDeChats);
-app.use('/horarios', salvarHorarios);
+app.use('/salvarHorarios', salvarHorarios);
 
 app.listen(3000, () => {
   console.log('Server running on port 3000');
