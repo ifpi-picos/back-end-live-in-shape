@@ -7,7 +7,9 @@ const prisma = new PrismaClient();
 
 // Middleware para interpretar JSON no corpo da requisição
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://goodshape.netlify.app',  // Substitua pelo domínio correto do seu frontend
+}));
 
 // Endpoint para adicionar uma dica
 app.post('/profissional/adicionar_dicas', async (req, res) => {
