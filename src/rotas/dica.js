@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 // Endpoint para adicionar uma dica
-app.post('http://goodshape.netlify.app/profissional/adicionar_dicas', async (req, res) => {
+app.post('https://back-end-live-in-shape-1.onrender.com/src/rotas/dica', async (req, res) => {
     try {
         const { topico, conteudo } = req.body;
 
