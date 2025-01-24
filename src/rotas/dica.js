@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 // Endpoint para adicionar uma dica
-app.post('/src/rotasdica.js', async (req, res) => {
+app.post('/profissional/adicionar_dicas', async (req, res) => {
     try {
         const { topico, conteudo } = req.body;
 
