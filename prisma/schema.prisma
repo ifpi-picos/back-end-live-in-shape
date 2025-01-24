@@ -36,10 +36,8 @@ model Disponibilidade {
 }
 
 model Dica {
-  id          Int      @id @default(autoincrement())
-  topico      String   @db.VarChar(255) // Tópico ou categoria da dica
-  conteudo    String   @db.Text         // Conteúdo detalhado da dica
-  dataCriacao DateTime @default(now())  // Data de criação da dica
-
-  @@map("dicas")
+  id         Int      @id @default(autoincrement())
+  topico     String
+  conteudo   String
+  createdAt  DateTime @default(now())
 }

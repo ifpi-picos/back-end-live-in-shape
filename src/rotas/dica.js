@@ -1,26 +1,25 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
+const cors = require('cors');
 
 const app = express();
 const prisma = new PrismaClient();
 
-// Middleware para interpretar JSON e configurar CORS
-app.use(bodyParser.json());
+// Middleware para interpretar JSON no corpo da requisição
+app.use(express.json());
 app.use(cors());
 
-// Rota para adicionar dicas
-app.post('/dicas', async (req, res) => {
-    const { topico, conteudo } = req.body;
-
-    // Validação básica
-    if (!topico || !conteudo) {
-        return res.status(400).json({ error: 'Tópico e conteúdo são obrigatórios!' });
-    }
-
+// Endpoint para adicionar uma dica
+app.post('/profissional/adicionar_dicas', async (req, res) => {
     try {
-        // Salvando a dica no banco de dados
+        const { topico, conteudo } = req.body;
+
+        // Validação básica
+        if (!topico || !conteudo) {
+            return res.status(400).json({ error: 'Tópico e conteúdo são obrigatórios!' });
+        }
+
+        // Criação da dica no banco de dados
         const novaDica = await prisma.dica.create({
             data: {
                 topico,
@@ -28,26 +27,26 @@ app.post('/dicas', async (req, res) => {
             },
         });
 
-        res.status(201).json({ message: 'Dica salva com sucesso!', dica: novaDica });
+        res.status(201).json({ message: 'Dica criada com sucesso!', dica: novaDica });
     } catch (error) {
-        console.error('Erro ao salvar a dica:', error);
-        res.status(500).json({ error: 'Erro ao salvar a dica no banco de dados!' });
+        console.error('Erro ao criar dica:', error);
+        res.status(500).json({ error: 'Erro interno no servidor.' });
     }
 });
 
-// Rota para listar todas as dicas (opcional)
-app.get('/dicas', async (req, res) => {
+// Endpoint para listar todas as dicas
+app.get('/profissional/listar_dicas', async (req, res) => {
     try {
         const dicas = await prisma.dica.findMany();
         res.status(200).json(dicas);
     } catch (error) {
         console.error('Erro ao listar dicas:', error);
-        res.status(500).json({ error: 'Erro ao buscar dicas!' });
+        res.status(500).json({ error: 'Erro interno no servidor.' });
     }
 });
 
-// Inicializando o servidor
+// Configuração do servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}`);
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
