@@ -1,15 +1,8 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
-import cors from 'cors';
 
 const router = express.Router();
 const prisma = new PrismaClient();
-
-// Middleware para interpretar JSON no corpo da requisição
-router.use(express.json());
-router.use(cors({
-    origin: 'https://goodshape.netlify.app',
-}));
 
 // Endpoint para adicionar uma dica
 router.post('/adicionar_dicas', async (req, res) => {
