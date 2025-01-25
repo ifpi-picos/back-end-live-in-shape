@@ -12,6 +12,7 @@
   import rotasDeExercicios from './rotas/rotasDeExercicios.js';
   import rotasDeProfissionais from './rotas/rotasDeProfissionais.js';
   import salvarHorarios from './rotas/salvarHorarios.js';
+  import dica from './rotas/dica.js'
 
   const app = Express();
   app.use(logger('dev'));
@@ -46,6 +47,7 @@
   app.get('/test-auth', validaToken, (req, res) => {
     res.send('Autorizado com sucesso!');
   });
+  app.use('/dica', dica);
 
 
   
