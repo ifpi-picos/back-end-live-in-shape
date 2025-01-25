@@ -33,17 +33,17 @@ app.get('/', (req, res) => {
 app.use('/cadastro', cadastro);
 app.use('/login', login);
 app.use('/clientes', rotaGetDeClientes);
+app.use('/dica', dica);
 app.use(aut); // middleware de autenticação
 
 // Colocar abaixo todas as rotas privadas que precisam de autenticação
 app.use('/clientes', rotasDeClientes);
 app.use('/exercicios', rotasDeExercicios);
 app.use('/dietas', rotasDeDietas);
-app.use('/profissionais', rotasDeProfissionais);
+app.use('/profissionais', rotasDeProfisionais);
 app.use('/conteudos', rotasDeConteudos);
 app.use('/chats', rotasDeChats);
 app.use('/salvarHorarios', salvarHorarios);
-app.use('/dica', dica);
 
 app.listen(3000, () => {
     console.log('Server running on port 3000');
