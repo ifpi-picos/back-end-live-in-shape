@@ -40,7 +40,7 @@ app.use(aut); // middleware de autenticação
 app.use('/clientes', rotasDeClientes);
 app.use('/exercicios', rotasDeExercicios);
 app.use('/dietas', rotasDeDietas);
-app.use('/profissionais', rotasDeProfisionais);
+app.use('/profissionais', rotasDeProfissionais);
 app.use('/conteudos', rotasDeConteudos);
 app.use('/chats', rotasDeChats);
 app.use('/salvarHorarios', salvarHorarios);
