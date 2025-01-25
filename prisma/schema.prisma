@@ -36,8 +36,10 @@ model Disponibilidade {
 }
 
 model Dica {
-  id         Int      @id @default(autoincrement())
-  topico     String
-  conteudo   String
-  createdAt  DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  topico    String
+  conteudo  String
+  createdAt DateTime @default(now())
+
+  @@map("dicas") // Opcional: Mapeia para o nome da tabela no banco de dados
 }
