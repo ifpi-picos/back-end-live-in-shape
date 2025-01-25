@@ -1,27 +1,25 @@
-const express = require('express');
-const { PrismaClient } = require('@prisma/client');
-const cors = require('cors');
+import express from 'express';
+import { PrismaClient } from '@prisma/client';
+import cors from 'cors';
 
-const app = express();
+const router = express.Router();
 const prisma = new PrismaClient();
 
 // Middleware para interpretar JSON no corpo da requisição
-app.use(express.json());
-app.use(cors({
-    origin: 'https://goodshape.netlify.app',  // Substitua pelo domínio correto do seu frontend
+router.use(express.json());
+router.use(cors({
+    origin: 'https://goodshape.netlify.app',
 }));
 
 // Endpoint para adicionar uma dica
-app.post('/profissional/adicionar_dicas', async (req, res) => {
+router.post('/adicionar_dicas', async (req, res) => {
     try {
         const { topico, conteudo } = req.body;
 
-        // Validação básica
         if (!topico || !conteudo) {
             return res.status(400).json({ error: 'Tópico e conteúdo são obrigatórios!' });
         }
 
-        // Criação da dica no banco de dados
         const novaDica = await prisma.dica.create({
             data: {
                 topico,
@@ -37,7 +35,7 @@ app.post('/profissional/adicionar_dicas', async (req, res) => {
 });
 
 // Endpoint para listar todas as dicas
-app.get('/profissional/listar_dicas', async (req, res) => {
+router.get('/listar_dicas', async (req, res) => {
     try {
         const dicas = await prisma.dica.findMany();
         res.status(200).json(dicas);
@@ -47,10 +45,4 @@ app.get('/profissional/listar_dicas', async (req, res) => {
     }
 });
 
-// Configuração do servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
-
-export default router;
+export default router; // Exporta o router
